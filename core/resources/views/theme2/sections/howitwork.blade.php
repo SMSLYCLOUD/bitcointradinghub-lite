@@ -21,7 +21,7 @@ $elements = element('howitwork.element')->take(3);
                              <i class="las la-wallet"></i>
                         </div>
                         <h3 class="mb-3">{{ __(@$element->data->title) }}</h3>
-                        <p class="text-muted"><?= clean($element->data->short_description) ?></p>
+                        <p class="text-muted">{!! clean($element->data->short_description) !!}</p>
                     </div>
                 </div>
             @endforeach
