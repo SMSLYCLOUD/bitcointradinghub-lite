@@ -1,0 +1,624 @@
+/* Premium Overrides for Jules Task - High-End Institutional Finance */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700;800&display=swap');
+
+:root {
+    --p-bg: #FFFFFF;
+    --p-bg-soft: #FAFAFA;
+    --p-surface: #FFFFFF;
+    --p-surface-hover: #F8FAFC;
+    --p-text-main: #111827;
+    --p-text-muted: #6B7280;
+    --p-gold-start: #D4AF37;
+    --p-gold-end: #F3E5AB;
+    --p-gold-solid: #C5A028;
+    --p-success: #10B981;
+    --p-danger: #EF4444;
+    --p-border: #E5E7EB;
+
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --glass-blur: 12px;
+}
+
+body.premium-theme {
+    background-color: var(--p-bg-soft);
+    color: var(--p-text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+}
+
+/* Typography Overrides */
+.premium-theme h1, .premium-theme h2, .premium-theme h3,
+.premium-theme h4, .premium-theme h5, .premium-theme h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--p-text-main);
+}
+
+.premium-theme p {
+    color: var(--p-text-muted);
+}
+
+/* Reset Links */
+.premium-theme a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* Premium Card (Bento Box) */
+.premium-card {
+    background: var(--p-surface);
+    border-radius: 24px;
+    border: 1px solid var(--p-border);
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.premium-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+    border-color: rgba(212, 175, 55, 0.3); /* Subtle gold hint */
+}
+
+/* Buttons */
+.btn-premium {
+    background: var(--p-text-main);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 50px;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.4s ease;
+}
+
+.btn-premium::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, var(--p-gold-start) 0%, var(--p-gold-solid) 100%);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.4s ease;
+}
+
+.btn-premium:hover {
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-premium:hover::before {
+    opacity: 1;
+}
+
+.btn-premium-outline {
+    background: transparent;
+    color: var(--p-text-main);
+    border: 2px solid var(--p-border);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    padding: 10px 26px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.btn-premium-outline:hover {
+    border-color: var(--p-text-main);
+    background: var(--p-text-main);
+    color: #fff;
+}
+
+/* Header/Nav */
+.premium-nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    z-index: 1000;
+    border-radius: 16px;
+    padding: 10px 30px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.premium-nav .nav-link {
+    color: var(--p-text-main) !important;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    position: relative;
+}
+
+.premium-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--p-gold-solid);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.premium-nav .nav-link:hover::after {
+    width: 20px;
+}
+
+/* Hero Section */
+.hero-premium {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding-top: 100px; /* Space for nav */
+}
+
+.hero-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    opacity: 0.3; /* Subtle */
+}
+
+.hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(to bottom, transparent, var(--p-bg-soft));
+    z-index: -1;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    z-index: 1;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to right, #111, #444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeUp 1s ease-out;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--p-text-muted);
+    margin-bottom: 2.5rem;
+    animation: fadeUp 1s ease-out 0.2s backwards;
+}
+
+.hero-actions {
+    animation: fadeUp 1s ease-out 0.4s backwards;
+}
+
+/* Animations */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+    animation: fadeUp 0.8s ease-out forwards;
+}
+
+/* Section Spacing */
+.section-premium {
+    padding: 100px 0;
+}
+
+/* Footer */
+.footer-premium {
+    background: #fff;
+    border-top: 1px solid var(--p-border);
+    padding: 60px 0;
+}
+
+/* Pricing/Plans Specifics */
+.plan-card {
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.plan-price {
+    font-size: 2.5rem;
+    color: var(--p-text-main);
+    margin: 1.5rem 0;
+}
+
+.plan-price sub {
+    font-size: 1rem;
+    color: var(--p-text-muted);
+}
+
+.plan-features li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--p-surface-hover);
+    color: var(--p-text-muted);
+}
+
+.plan-features li:last-child {
+    border-bottom: none;
+}
+
+/* Tabular Nums for Data */
+.tabular-nums {
+    font-variant-numeric: tabular-nums;
+    font-family: var(--font-body);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .premium-nav {
+        width: 100%;
+        top: 0;
+        border-radius: 0;
+        padding: 15px;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+}
+
+/* =========================================
+   DASHBOARD STYLES (PREMIUM OVERRIDES)
+   ========================================= */
+
+.dashboard-body-part {
+    padding-top: 30px;
+}
+
+/* Base Card Style for Dashboard Widgets */
+.d-box-one,
+.d-box-three,
+.d-box-four,
+.dashboard-body-part .card {
+    background: rgba(255, 255, 255, 0.05); /* Ultra-transparent glass */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+}
+
+.d-box-one:hover,
+.d-box-three:hover,
+.d-box-four:hover,
+.dashboard-body-part .card:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold-light);
+    box-shadow: 0 12px 40px rgba(212, 175, 55, 0.15);
+}
+
+/* Account Balance (d-box-one) specific */
+.d-box-one {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(0, 0, 0, 0.4));
+    border: 1px solid var(--gold);
+}
+
+.d-box-one .icon {
+    font-size: 3rem;
+    color: var(--gold);
+    margin-bottom: 15px;
+    background: rgba(212, 175, 55, 0.1);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.d-box-one .content .caption-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.d-box-one .content .d-box-one-amount {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--white);
+    margin-top: 5px;
+    background: linear-gradient(to right, #fff, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Secondary Widgets (d-box-three) */
+.d-box-three {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.d-box-three .icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--gold);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+}
+
+.d-box-three .content .caption-title {
+    display: block;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 5px;
+}
+
+.d-box-three .content .d-box-three-amount {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--white);
+    margin: 0;
+}
+
+/* Tertiary Widgets (d-box-four) */
+.d-box-four {
+    text-align: center;
+    padding: 20px;
+}
+
+.d-box-four .link-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s ease;
+}
+
+.d-box-four .link-btn:hover {
+    color: var(--gold);
+}
+
+.d-box-four .icon {
+    font-size: 2rem;
+    color: var(--gold-light);
+    margin-bottom: 15px;
+}
+
+.d-box-four .content .caption-title {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.d-box-four .content .d-box-four-amount {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+}
+
+/* Referral Link Input */
+.dashboard-body-part .input-group {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-body-part input.form-control {
+    background: transparent !important;
+    border: none;
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+}
+
+.dashboard-body-part input.form-control:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.dashboard-body-part .input-group-text {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dashboard-body-part .input-group-text:hover {
+    background: var(--white);
+    color: var(--gold);
+}
+
+/* Reference Tree Card */
+.dashboard-body-part .card-header {
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px 24px;
+}
+
+.dashboard-body-part .card-header h5 {
+    color: var(--white);
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+}
+
+.dashboard-body-part .card-body {
+    padding: 24px;
+}
+
+/* Clean up text colors inside the tree */
+.sp-referral .single-child p span {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Override default Bootstrap bg if present */
+.bg-white {
+    background-color: transparent !important;
+}
+
+/* Modal styling overrides */
+.modal-content {
+    background: #1a1a1a; /* Dark background for modal */
+    border: 1px solid var(--gold);
+    color: var(--white);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.close {
+    color: var(--white);
+    text-shadow: none;
+    opacity: 0.8;
+}
+
+.close:hover {
+    color: var(--gold);
+    opacity: 1;
+}
+
+/* =========================================
+   SIDEBAR STYLES (PREMIUM OVERRIDES)
+   ========================================= */
+
+.d-sidebar {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.d-sidebar .d-sidebar-menu > li > a {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.d-sidebar .d-sidebar-menu > li > a:hover,
+.d-sidebar .d-sidebar-menu > li.active > a {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--gold) !important;
+    border-left-color: var(--gold);
+}
+
+.d-sidebar .d-sidebar-menu > li > a i {
+    color: var(--gold-light);
+    margin-right: 10px;
+}
+
+.d-sidebar .submenu {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.d-sidebar .submenu li a {
+    color: rgba(255, 255, 255, 0.6) !important;
+    padding-left: 40px;
+}
+
+.d-sidebar .submenu li a:hover {
+    color: var(--white) !important;
+}
+
+.d-plan-notice {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(0, 0, 0, 0.3));
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    padding: 15px;
+    color: var(--white);
+    text-align: center;
+}
+
+.d-plan-notice p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.d-plan-notice a {
+    color: var(--gold);
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    text-decoration: none;
+}
+
+.d-plan-notice a:hover {
+    color: var(--white);
+}
+
+/* Override colorful icons for premium look */
+.d-box-four-wrapper [class*="col-"] .d-box-four .icon {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(0, 0, 0, 0.4)) !important;
+    border: 1px solid var(--gold);
+    color: var(--gold) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.d-box-four-wrapper [class*="col-"] .d-box-four:hover .icon {
+    background: var(--gold) !important;
+    color: #000 !important;
+}

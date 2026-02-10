@@ -3,127 +3,107 @@
     $counter = element('banner.element');
 @endphp
 
-<section id="banner" class="banner-section">
-    <div class="globe-el">
-        <img src="{{ getFile('bg', 'globe2.png') }}" alt="globe elements">
-    </div>
-    <div class="banner-candle">
-        <img src="{{ getFile('bg', 'banner-candle.png') }}" alt="globe elements">
-    </div>
+<section class="hero-premium">
+    <video autoplay loop muted playsinline class="hero-video-bg">
+        <source src="https://videos.pexels.com/video-files/3129957/3129957-hd_1920_1080_25fps.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
 
-    <div class="container">
-        <div class="row gy-5 align-items-center justify-content-between">
-            <div class="col-xxl-6 col-xl-7 wow fadeInUp" data-wow-delay="0.5s" data-wow-duration="0.5s">
-                <div class="banner-content text-lg-start text-center">
-                    <h2 class="banner-title"> {{ __(@$content->data->title) }}</h2>
-                    <div class="banner-btn-group justify-content-lg-start justify-content-center mt-4">
-                        <a href="{{ __(@$content->data->button_text_link) }}"
-                            class="sp_theme_btn">{{ __(@$content->data->button_text) }}</a>
-                        <a href="{{ __(@$content->data->button_text_2_link) }}"
-                            class="sp_border_btn">{{ __(@$content->data->button_text_2) }}</a>
-                    </div>
-                    <h5 class="mt-5">{{ __(@$content->data->cta_title) }}</h5>
-                    <div class="row mt-4 overview-wrapper">
-                        @foreach ($counter as $count)
-                            <div class="col-lg-3 col-4">
-                                <div class="overview-box">
-                                    <div class="overview-box-amount">{{ @$count->data->total }}</div>
-                                    <p>{{ __(@$count->data->title) }}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+    <div class="container position-relative z-1">
+        <div class="hero-content mx-auto">
+            <h1 class="hero-title">{{ __(@$content->data->title) }}</h1>
+            <p class="hero-subtitle">{{ __(@$content->data->cta_title) }}</p>
+
+            <div class="hero-actions d-flex justify-content-center gap-3">
+                 <a href="{{ __(@$content->data->button_text_link) }}" class="btn-premium">
+                    {{ __(@$content->data->button_text) }}
+                 </a>
+                 <a href="{{ __(@$content->data->button_text_2_link) }}" class="btn-premium-outline">
+                    {{ __(@$content->data->button_text_2) }}
+                 </a>
             </div>
-            <div class="col-xxl-6 col-xl-5 d-xl-block d-none wow fadeInUp" data-wow-delay="0.7s"
-                data-wow-duration="0.5s">
-                <div class="banner-thumb">
-                    <img src="{{ getFile('banner', @$content->data->backgroundimage) }}" alt="banner image">
+
+            <!-- Stats as glass cards floating below -->
+            <div class="row mt-5 justify-content-center">
+                 @foreach ($counter as $count)
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="glass-panel p-3 rounded-4 text-center">
+                            <h3 class="mb-1 tabular-nums fs-4 fw-bold">{{ @$count->data->total }}</h3>
+                            <p class="mb-0 small text-muted">{{ __(@$count->data->title) }}</p>
+                        </div>
+                    </div>
+                 @endforeach
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TradingView Widget (Keep but style) -->
+<div class="container position-relative z-2" style="margin-top: -30px;">
+    <div class="glass-panel rounded-pill p-2">
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container" style="height: 46px;">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+                {
+                    "symbols": [
+                        {"proName": "FOREXCOM:SPXUSD", "title": "S&P 500"},
+                        {"proName": "FOREXCOM:NSXUSD", "title": "US 100"},
+                        {"proName": "FX_IDC:EURUSD", "title": "EUR/USD"},
+                        {"proName": "BITSTAMP:BTCUSD", "title": "Bitcoin"},
+                        {"proName": "BITSTAMP:ETHUSD", "title": "Ethereum"}
+                    ],
+                    "showSymbolLogo": true,
+                    "colorTheme": "light",
+                    "isTransparent": true,
+                    "displayMode": "adaptive",
+                    "locale": "en"
+                }
+            </script>
+        </div>
+        <!-- TradingView Widget END -->
+    </div>
+</div>
+
+<!-- Calculator Section (Redesigned) -->
+<section class="section-premium">
+    <div class="container">
+        <div class="premium-card">
+            <div class="row align-items-center">
+                <div class="col-lg-5">
+                    <h3 class="mb-4">{{ __('Calculate Your Potential Profit') }}</h3>
+                    <p class="text-muted mb-4">See how your investment can grow with our premium plans.</p>
+                     <div class="d-grid gap-3">
+                         <div>
+                            <label class="form-label">{{ __('Amount') }}</label>
+                            <input type="text" class="form-control rounded-pill border-0 bg-light p-3" name="amount" id="amount" placeholder="{{ __('Enter amount') }}">
+                         </div>
+                         <div>
+                            <label class="form-label">{{ __('Investment Plan') }}</label>
+                            <select class="form-select rounded-pill border-0 bg-light p-3" name="selectplan" id="plan">
+                                <option selected disabled>{{ __('Select a plan') }}</option>
+                                @forelse ($plan as $item)
+                                    <option value="{{ $item->id }}">{{ $item->plan_name }}</option>
+                                @empty
+                                @endforelse
+                            </select>
+                         </div>
+                         <button id="calculate-btn" class="btn-premium w-100 mt-3">{{ __('Calculate Earning') }}</button>
+                     </div>
+                </div>
+                <div class="col-lg-7 d-none d-lg-block text-center">
+                     <img src="{{ getFile('elements', 'budget.png') }}" alt="chart" class="img-fluid" style="max-height: 300px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));">
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-
-
-<!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container">
-    <div class="tradingview-widget-container__widget"></div>
-    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/markets/" rel="noopener"
-            target="_blank"><span class="blue-text">Markets today</span></a> by TradingView</div>
-    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-        {
-            "symbols": [{
-                    "proName": "FOREXCOM:SPXUSD",
-                    "title": "S&P 500"
-                },
-                {
-                    "proName": "FOREXCOM:NSXUSD",
-                    "title": "US 100"
-                },
-                {
-                    "proName": "FX_IDC:EURUSD",
-                    "title": "EUR/USD"
-                },
-                {
-                    "proName": "BITSTAMP:BTCUSD",
-                    "title": "Bitcoin"
-                },
-                {
-                    "proName": "BITSTAMP:ETHUSD",
-                    "title": "Ethereum"
-                }
-            ],
-            "showSymbolLogo": true,
-            "colorTheme": "dark",
-            "isTransparent": false,
-            "displayMode": "adaptive",
-            "locale": "en"
-        }
-    </script>
-</div>
-<!-- TradingView Widget END -->
-
-
-
-<div class="calculate-area">
-    <div class="calculator"><img src="{{ getFile('elements', 'budget.png') }}" alt="image"></div>
-    <div class="shape-1"><img src="{{ getFile('elements', 'cal-1.png') }}" alt="image"></div>
-    <div class="shape-2"><img src="{{ getFile('elements', 'cal-2.png') }}" alt="image"></div>
-    <div class="shape-3"><img src="{{ getFile('elements', 'cal-3.png') }}" alt="image"></div>
-    <div class="shape-4"><img src="{{ getFile('elements', 'cal-4.png') }}" alt="image"></div>
-
-    <div class="container">
-        <div class="row gy-4 align-items-end">
-            <div class="col-lg-4 col-md-6">
-                <label class="mbl-h">{{ __('Amount') }}</label>
-                <input type="text" class="form-control" name="amount" id="amount"
-                    placeholder="{{ __('Enter amount') }}">
-            </div>
-            <div class="col-lg-5 col-md-6">
-                <label class="mbl-h">{{ __('Investment Plan') }}</label>
-                <select class="form-select" name="selectplan" id="plan">
-                    <option selected disabled class="text-secondary">{{ __('Select a plan') }}</option>
-                    @forelse ($plan as $item)
-                        <option value="{{ $item->id }}">{{ $item->plan_name }}</option>
-                    @empty
-                    @endforelse
-                </select>
-            </div>
-            <div class="col-lg-3">
-                <a href="#" id="calculate-btn" class="sp_theme_btn w-100"> {{ __('Calculate Earning') }}</a>
-            </div>
-        </div>
-    </div>
-</div>
 @push('style')
     <style>
         .tradingview-widget-container {
             height: 46px !important;
         }
-
-
         .tradingview-widget-copyright {
             display: none;
         }

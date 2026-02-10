@@ -25,13 +25,14 @@
     <link rel="stylesheet" href="{{ asset('asset/theme2/frontend/css/line-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/theme2/frontend/css/iziToast.min.css') }}">
     <link href="{{ asset('asset/theme2/frontend/css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('asset/theme2/frontend/css/premium_overrides.css') }}">
 
 
     @stack('style')
 
 </head>
 
-<body>
+<body class="premium-theme">
 
     @if (@$general->preloader_status)
         <div id="preloader"></div>
