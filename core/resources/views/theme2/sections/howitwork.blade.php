@@ -1,29 +1,27 @@
 @php
 $content = content('howitwork.content');
-$elements = element('howitwork.element')->take(8);
+$elements = element('howitwork.element')->take(3);
 @endphp
 
-<section id="how-start" class="s-pt-100 s-pb-100">
+<section id="how-start" class="section-premium">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 text-center">
-                <div class="sp_site_header">
-                    <h2 class="sp_site_title">{{ __(@$content->data->title) }}</h2>
-                </div>
-            </div>
+        <div class="text-center mb-5 animate-fade-up">
+            <h2 class="display-4 fw-bold">{{ __(@$content->data->title) }}</h2>
+             <p class="text-muted fs-5">Get started in three simple steps</p>
         </div>
 
-        <div class="row gy-5 work-wrapper">
-            @foreach ($elements as $element)
+        <div class="row gy-4">
+            @foreach ($elements as $key => $element)
                 <div class="col-lg-4">
-                    <div class="work-box">
-                        <div class="icon">
-                            <i class="far fa-user"></i>
+                    <div class="premium-card text-center h-100 position-relative">
+                        <div class="position-absolute top-0 start-50 translate-middle badge bg-warning rounded-pill fs-6 px-3 py-2 border border-white">
+                            Step {{ $key + 1 }}
                         </div>
-                        <div class="content">
-                            <h3 class="title">{{ __(@$element->data->title) }}</h3>
-                            <p><?= clean($element->data->short_description) ?></p>
+                        <div class="mt-4 mb-3 d-inline-block p-4 rounded-circle bg-light text-warning fs-1">
+                             <i class="las la-wallet"></i>
                         </div>
+                        <h3 class="mb-3">{{ __(@$element->data->title) }}</h3>
+                        <p class="text-muted"><?= clean($element->data->short_description) ?></p>
                     </div>
                 </div>
             @endforeach

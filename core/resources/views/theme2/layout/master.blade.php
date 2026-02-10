@@ -34,10 +34,11 @@
     @stack('style')
 
    <link rel="stylesheet" href="{{ asset('asset/theme2/frontend/css/color.php?primary_color=' . str_replace('#', '', @$general->primary_color)) }}">
+   <link rel="stylesheet" href="{{ asset('asset/theme2/frontend/css/premium_overrides.css') }}">
 </head>
 
 
-<body data-bs-spy="scroll" data-bs-target="#mainNavbar" data-bs-offset="100" tabindex="0">
+<body class="premium-theme" data-bs-spy="scroll" data-bs-target="#mainNavbar" data-bs-offset="100" tabindex="0">
 
     @if (@$general->preloader_status)
         <div id="preloader"></div>
@@ -88,6 +89,7 @@
     <script src="{{ asset('asset/theme2/frontend/js/main.js') }}"></script>
     <script src="{{ asset('asset/theme2/frontend/js/iziToast.min.js') }}"></script>
     <script src="{{ asset('asset/theme2/frontend/js/jquery.uploadPreview.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     @stack('script')
     @if (@$general->twak_allow)
