@@ -4,7 +4,7 @@
 @endphp  
   
   <!-- header-section start  -->
-  <header class="header">
+  <header class="header fixed-top obsidian-header">
     <div class="header-top">
       <div class="container">
         <div class="row">

@@ -6,7 +6,7 @@ $serviceElements = element('service.element');
 
 @endphp
 
-<footer class="footer-section has-bg-img">
+<footer class="footer-section has-bg-img obsidian-footer">
     <div class="footer-logo-portion">
         <div class="container">
             <div class="row gy-3 align-items-center">
