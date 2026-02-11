@@ -1,0 +1,87 @@
+:root {
+    --obsidian-bg: #0A0A0F;
+    --obsidian-surface: #111118;
+    --obsidian-card: #16161E;
+    --obsidian-border: #2A2A35;
+    --gold: #C9A84C;
+    --gold-light: #E5D297;
+    --platinum: #E8E8EC;
+    --text-secondary: #8A8A95;
+}
+
+body.obsidian-theme {
+    background-color: var(--obsidian-bg);
+    color: var(--platinum);
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+body.obsidian-theme h1,
+body.obsidian-theme h2,
+body.obsidian-theme h3,
+body.obsidian-theme h4,
+body.obsidian-theme h5,
+body.obsidian-theme h6 {
+    color: var(--platinum);
+}
+
+body.obsidian-theme p {
+    color: var(--text-secondary);
+}
+
+/* Global Reset for Rounded Corners */
+body.obsidian-theme * {
+    border-radius: 0 !important;
+}
+
+/* Utility Classes */
+.obsidian-card {
+    background-color: var(--obsidian-card);
+    border: 1px solid var(--obsidian-border);
+}
+
+.text-gold {
+    color: var(--gold) !important;
+}
+
+.bg-gold {
+    background-color: var(--gold) !important;
+}
+
+.border-gold {
+    border-color: var(--gold) !important;
+}
+
+/* Button Overrides */
+body.obsidian-theme .btn,
+body.obsidian-theme button {
+    border-radius: 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+body.obsidian-theme .btn-primary,
+body.obsidian-theme .main-btn {
+    background-color: var(--gold);
+    color: #000;
+    border: none;
+}
+
+body.obsidian-theme .btn-secondary,
+body.obsidian-theme .main-btn2 {
+    background-color: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+}
+
+body.obsidian-theme .btn-primary:hover,
+body.obsidian-theme .main-btn:hover {
+    background-color: var(--gold-light);
+    color: #000;
+}
+
+body.obsidian-theme .btn-secondary:hover,
+body.obsidian-theme .main-btn2:hover {
+    background-color: var(--gold);
+    color: #000;
+}

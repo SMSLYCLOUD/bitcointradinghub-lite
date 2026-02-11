@@ -1,0 +1,140 @@
+:root {
+    --aurora-bg: #0F0F1A;
+    --aurora-surface: #1A1A2E;
+    --aurora-card: rgba(255,255,255,0.05);
+    --aurora-card-border: rgba(255,255,255,0.08);
+    --aurora-purple: #7C3AED;
+    --aurora-cyan: #06B6D4;
+    --aurora-emerald: #10B981;
+    --aurora-gradient: linear-gradient(135deg, #7C3AED, #06B6D4, #10B981);
+    --text-primary: #F0F0F5;
+    --text-secondary: #9CA3AF;
+}
+
+body.aurora-theme {
+    background-color: var(--aurora-bg);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body.aurora-theme h1,
+body.aurora-theme h2,
+body.aurora-theme h3,
+body.aurora-theme h4,
+body.aurora-theme h5,
+body.aurora-theme h6 {
+    color: var(--text-primary);
+}
+
+body.aurora-theme p {
+    color: var(--text-secondary);
+}
+
+/* Background Blobs */
+body.aurora-theme::before,
+body.aurora-theme::after {
+    content: '';
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.15;
+    z-index: -1;
+    pointer-events: none;
+}
+
+body.aurora-theme::before {
+    top: -10%;
+    left: -10%;
+    background: var(--aurora-purple);
+}
+
+body.aurora-theme::after {
+    bottom: -10%;
+    left: -10%;
+    background: var(--aurora-emerald);
+}
+
+/* Third blob via pseudo-element on a wrapper or just use body specific class helper */
+body.aurora-theme .aurora-blob-center {
+    position: fixed;
+    top: 50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: var(--aurora-cyan);
+    filter: blur(150px);
+    opacity: 0.15;
+    z-index: -1;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+/* Utility Classes */
+.aurora-card {
+    background: var(--aurora-card);
+    border: 1px solid var(--aurora-card-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.text-gradient {
+    background: var(--aurora-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.bg-gradient-aurora {
+    background: var(--aurora-gradient);
+}
+
+.rounded-2xl {
+    border-radius: 1rem !important;
+}
+
+.rounded-3xl {
+    border-radius: 1.5rem !important;
+}
+
+.rounded-full {
+    border-radius: 9999px !important;
+}
+
+/* Button Overrides */
+body.aurora-theme .btn-primary,
+body.aurora-theme .main-btn {
+    background: var(--aurora-gradient);
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    padding: 10px 28px;
+    transition: all 0.3s ease;
+}
+
+body.aurora-theme .btn-primary:hover,
+body.aurora-theme .main-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.4); /* purple glow */
+    color: white;
+}
+
+body.aurora-theme .btn-secondary,
+body.aurora-theme .main-btn2 {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--aurora-card-border);
+    color: white;
+    border-radius: 9999px;
+    backdrop-filter: blur(5px);
+}
+
+body.aurora-theme .btn-secondary:hover,
+body.aurora-theme .main-btn2:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
+    color: white;
+}

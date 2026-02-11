@@ -21,12 +21,13 @@
     <link rel="stylesheet" href="{{ asset('asset/theme3/frontend/css/font-awsome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/theme3/frontend/css/iziToast.min.css') }}">
     <link href="{{ asset('asset/theme3/frontend/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/theme3/frontend/css/premium_overrides.css') }}" rel="stylesheet">
 
     @stack('style')
 </head>
 
 
-<body>
+<body class="obsidian-theme">
 
     @if (@$general->preloader_status)
     <div class="preloader-holder">
@@ -81,6 +82,59 @@
     <script src="{{ asset('asset/theme3/frontend/js/main.js') }}"></script>
     <script src="{{ asset('asset/theme3/frontend/js/iziToast.min.js') }}"></script>
     <script src="{{ asset('asset/theme3/frontend/js/jquery.uploadPreview.min.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Header slide down
+            gsap.from(".header", {
+                y: -100,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+
+            // Cards fade-in-up
+            const cards = gsap.utils.toArray(".obsidian-card, .benefit-item, .plan-item, .blog-item, .contact-item, .accordion-item");
+            cards.forEach(card => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power2.out"
+                });
+            });
+
+            // Counter Animation
+            gsap.utils.toArray(".counter-title").forEach(counter => {
+                let endValue = parseFloat(counter.innerText.replace(/,/g, ''));
+                if (!isNaN(endValue)) {
+                    let zero = { val: 0 };
+                    gsap.to(zero, {
+                        val: endValue,
+                        duration: 2,
+                        scrollTrigger: {
+                            trigger: counter,
+                            start: "top 85%"
+                        },
+                        ease: "power1.out",
+                        onUpdate: function() {
+                            counter.innerText = Math.floor(zero.val);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 
     @stack('script')
     @if (@$general->twak_allow)

@@ -21,12 +21,14 @@
     <link rel="stylesheet" href="{{ asset('asset/theme4/frontend/css/font-awsome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/theme4/frontend/css/iziToast.min.css') }}">
     <link href="{{ asset('asset/theme4/frontend/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/theme4/frontend/css/premium_overrides.css') }}" rel="stylesheet">
 
     @stack('style')
 </head>
 
 
-<body>
+<body class="aurora-theme">
+    <div class="aurora-blob-center"></div>
 
     @if (@$general->preloader_status)
     <div class="preloader-holder">
@@ -81,6 +83,84 @@
     <script src="{{ asset('asset/theme4/frontend/js/main.js') }}"></script>
     <script src="{{ asset('asset/theme4/frontend/js/iziToast.min.js') }}"></script>
     <script src="{{ asset('asset/theme4/frontend/js/jquery.uploadPreview.min.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Staggered fade-up for cards
+            const fadeUpElements = gsap.utils.toArray(".aurora-card, .benefit-item, .plan-item, .work-item, .about-content, .blog-item, .contact-item, .accordion-item");
+
+            ScrollTrigger.batch(fadeUpElements, {
+                onEnter: batch => gsap.from(batch, {
+                    y: 60,
+                    opacity: 0,
+                    duration: 0.8,
+                    stagger: 0.15,
+                    ease: "power2.out",
+                    overwrite: true
+                }),
+                start: "top 85%"
+            });
+
+            // Counter Animation
+            gsap.utils.toArray(".counter-title").forEach(counter => {
+                let endValue = parseFloat(counter.innerText.replace(/,/g, ''));
+                if (!isNaN(endValue)) {
+                    let zero = { val: 0 };
+                    gsap.to(zero, {
+                        val: endValue,
+                        duration: 2,
+                        scrollTrigger: {
+                            trigger: counter,
+                            start: "top 85%"
+                        },
+                        ease: "power1.out",
+                        onUpdate: function() {
+                            counter.innerText = Math.floor(zero.val);
+                        }
+                    });
+                }
+            });
+
+            // Hover Tilt Effect
+            const tiltCards = document.querySelectorAll(".aurora-card");
+            tiltCards.forEach(card => {
+                card.style.transformStyle = "preserve-3d";
+                card.style.perspective = "1000px";
+
+                card.addEventListener("mousemove", (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = ((y - centerY) / centerY) * -2;
+                    const rotateY = ((x - centerX) / centerX) * 2;
+
+                    gsap.to(card, {
+                        rotationX: rotateX,
+                        rotationY: rotateY,
+                        duration: 0.5,
+                        ease: "power1.out"
+                    });
+                });
+
+                card.addEventListener("mouseleave", () => {
+                    gsap.to(card, {
+                        rotationX: 0,
+                        rotationY: 0,
+                        duration: 0.5,
+                        ease: "power1.out"
+                    });
+                });
+            });
+        });
+    </script>
 
     @stack('script')
     @if (@$general->twak_allow)

@@ -6,19 +6,16 @@ $plans = App\Models\Plan::where('status', 1)
 @endphp
 
 <section class="plan-section sp_pt_120 sp_pb_120 sp_separator_bg">
-    <div class="plan-section-el">
-        <img src="{{ getFile('elements', 'el-1.png') }}" alt="image">
-    </div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-7 text-center">
-                <div class="sp_site_header  wow fadeInUp" data-wow-duration="0.3s" data-wow-delay="0.3s">
-                    <h2 class="sp_site_title">{{ __(@$content->data->title) }}</h2>
+                <div class="sp_site_header wow fadeInUp" data-wow-duration="0.3s" data-wow-delay="0.3s">
+                    <h2 class="sp_site_title display-4 fw-bold text-gradient">{{ __(@$content->data->title) }}</h2>
                 </div>
             </div>
         </div>
 
-        <div class="row gy-4 items-wrapper justify-content-center">
+        <div class="row gy-4 items-wrapper justify-content-center mt-4">
             @forelse ($plans as $plan)
             @php
             $plan_exist = App\Models\Payment::where('plan_id', $plan->id)
@@ -26,92 +23,86 @@ $plans = App\Models\Plan::where('status', 1)
             ->where('next_payment_date', '!=', null)
             ->where('payment_status', 1)
             ->count();
+
+            $isFeatured = ($loop->iteration == 2);
             @endphp
 
-            <div class="col-xl-4 col-md-6">
-                <div class="plan-item">
-                    <div class="plan-name-area">
-                        <h3 class="plan-name mb-2">{{ $plan->plan_name }}</h3>
-                        <span class="plan-status">{{ __('Every') }} {{ $plan->time->name }}</span>
+            <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.5s">
+                <div class="plan-item aurora-card p-4 h-100 d-flex flex-column rounded-3xl position-relative {{ $isFeatured ? 'border-gradient featured-plan' : '' }}" style="border-radius: 24px;">
+                    @if($isFeatured)
+                        <div class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-gradient-aurora px-3 py-2 text-white shadow-lg">{{ __('Most Popular') }}</div>
+                    @endif
+
+                    <div class="plan-header text-center mb-4 mt-2">
+                        <h3 class="plan-name mb-2 text-primary d-inline-block position-relative pb-1" style="border-bottom: 2px solid; border-image: var(--aurora-gradient) 1;">{{ $plan->plan_name }}</h3>
+                        <span class="d-block text-secondary small mt-1">{{ __('Every') }} {{ $plan->time->name }}</span>
+                        <div class="plan-price mt-3">
+                            <h2 class="display-4 fw-bold text-gradient mb-0">
+                                {{ number_format($plan->return_interest, 2) }}@if ($plan->interest_status == 'percentage')%@else{{ @$general->site_currency }}@endif
+                            </h2>
+                            <span class="text-secondary small">{{ __('ROI') }}</span>
+                        </div>
                     </div>
-                    <div class="plan-fatures">
-                        <ul class="plan-list">
+
+                    <div class="plan-features flex-grow-1 mb-4">
+                        <ul class="list-unstyled">
+                            @php
+                                $checkIcon = '<i class="fas fa-check-circle text-success me-2"></i>';
+                            @endphp
+
                             @if ($plan->amount_type == 0)
-                            <li>
-                                <span class="caption">{{ __('Minimum') }} </span>
-                                <span class="details"> {{ number_format($plan->minimum_amount, 2) . ' ' . @$general->site_currency }}</span>
+                            <li class="mb-2 d-flex align-items-center text-secondary">
+                                {!! $checkIcon !!}
+                                <span>{{ __('Min') }} <strong class="text-white">{{ number_format($plan->minimum_amount, 2) . ' ' . @$general->site_currency }}</strong></span>
                             </li>
-                            <li>
-                                <span class="caption">{{ __('Maximum') }} </span>
-                                <span class="details"> {{ number_format($plan->maximum_amount, 2) . ' ' . @$general->site_currency }}</span>
+                            <li class="mb-2 d-flex align-items-center text-secondary">
+                                {!! $checkIcon !!}
+                                <span>{{ __('Max') }} <strong class="text-white">{{ number_format($plan->maximum_amount, 2) . ' ' . @$general->site_currency }}</strong></span>
                             </li>
                             @else
-                            <li>
-                                <span class="caption">{{ __('Amount') }} </span>
-                                <span class="details"> {{ number_format($plan->amount, 2) . ' ' . @$general->site_currency }}</span>
+                            <li class="mb-2 d-flex align-items-center text-secondary">
+                                {!! $checkIcon !!}
+                                <span>{{ __('Amount') }} <strong class="text-white">{{ number_format($plan->amount, 2) . ' ' . @$general->site_currency }}</strong></span>
                             </li>
                             @endif
 
-                            @if ($plan->return_for == 1)
-                            <li>
-                                <span class="caption">{{ __('For') }} </span>
-                                <span class="details"> {{ $plan->how_many_time }} {{ __('Times') }}</span>
+                            <li class="mb-2 d-flex align-items-center text-secondary">
+                                {!! $checkIcon !!}
+                                <span>{{ __('For') }} <strong class="text-white">{{ $plan->return_for == 1 ? $plan->how_many_time . ' ' . __('Times') : __('Lifetime') }}</strong></span>
                             </li>
-                            @else
-                            <li>
-                                <span class="caption">{{ __('For') }} </span>
-                                <span class="details"> {{ __('Lifetime') }}</span>
-                            </li>
-                            @endif
 
-                            @if ($plan->capital_back == 1)
-                            <li>
-                                <span class="caption">{{ __('Capital Back') }} </span>
-                                <span class="details"> {{ __('YES') }}</span>
+                            <li class="mb-2 d-flex align-items-center text-secondary">
+                                {!! $checkIcon !!}
+                                <span>{{ __('Capital Back') }} <strong class="text-white">{{ $plan->capital_back == 1 ? __('YES') : __('NO') }}</strong></span>
                             </li>
-                            @else
-                            <li>
-                                <span class="caption">{{ __('Capital Back') }} </span>
-                                <span class="details"> {{ __('NO') }}</span>
-                            </li>
-                            @endif
                         </ul>
 
-                        <div class="plan-rio">
-                            <h6>{{ __('ROI') }}</h6>
-                            <p class="plan-amount">
-                                {{ number_format($plan->return_interest, 2) }} @if ($plan->interest_status == 'percentage')
-                                {{ '%' }}
-                                @else
-                                {{ @$general->site_currency }}
-                                @endif
-                            </p>
-                        </div>
-
-                        <h6 class="mt-4 mb-3">{{ __('Affiliate Bonus') }}</h6>
-                        <ul class="plan-referral">
+                        <h6 class="mt-4 mb-3 text-white">{{ __('Affiliate Bonus') }}</h6>
+                        <ul class="plan-referral list-unstyled">
                             @if($plan->referrals)
                                 @foreach ($plan->referrals->level as $key => $value)
-                                    <div class="single-referral">
+                                    <li class="text-secondary small d-flex justify-content-between">
                                         <span>{{$plan->referrals->commision[$key]}} %</span>
-                                        <p>{{$value}}</p>
-                                    </div>
+                                        <span>{{$value}}</span>
+                                    </li>
                                 @endforeach
                             @endif
                         </ul>
-
                     </div>
-                    <div class="plan-action">
+
+                    <div class="plan-action mt-auto">
                         @if ($plan_exist >= $plan->invest_limit)
-                        <a class="main-btn plan-btn w-100 disabled" href="#">
+                        <a class="btn w-100 disabled rounded-full bg-secondary text-white border-0 py-3" href="#">
                             <span>{{ __('Max Limit exceeded') }}</span>
                         </a>
                         @else
-                        <a class="main-btn plan-btn w-100" href="{{ route('user.gateways', $plan->id) }}">
+                        <a class="btn w-100 rounded-full py-3 fw-bold text-white mb-2 shadow-lg" href="{{ route('user.gateways', $plan->id) }}" style="background: var(--aurora-gradient);">
                             <span>{{ __('Invest Now') }}</span>
                         </a>
                         @auth
-                        <button class="main-btn2 bg-white sp_text_dark balance w-100 mt-2" data-plan="{{ $plan }}" data-url=""><span>{{ __('Invest Using Balance') }}</span></button>
+                        <button class="btn w-100 rounded-full py-3 fw-bold text-white aurora-card border border-white balance" data-plan="{{ $plan }}" data-url="">
+                            <span>{{ __('Balance Invest') }}</span>
+                        </button>
                         @endauth
                         @endif
                     </div>
@@ -123,59 +114,91 @@ $plans = App\Models\Plan::where('status', 1)
     </div>
 </section>
 
-<div class="calculate-area">
-    <div class="calculator"><img src="{{ getFile('elements', 'calculator.png') }}" alt="image"></div>
+<div class="calculate-area py-5">
     <div class="container">
-        <div class="row gy-4 align-items-end">
-            <div class="col-lg-4 col-md-6">
-                <label class="mbl-h text-white">{{ __('Amount') }}</label>
-                <input type="text" class="form-control" name="amount" id="amount" placeholder="{{ __('Enter amount') }}">
-            </div>
-            <div class="col-lg-5 col-md-6">
-                <label class="mbl-h text-white">{{ __('Investment Plan') }}</label>
-                <select class="select" name="selectplan" id="plan">
-                    <option selected disabled class="sp_text_secondary">{{ __('Select a plan') }}</option>
-                    @forelse ($plans as $item)
-                    <option value="{{ $item->id }}">{{ $item->plan_name }}</option>
-                    @empty
-                    @endforelse
-                </select>
-            </div>
-            <div class="col-lg-3">
-                <a href="#0" id="calculate-btn" class="main-btn w-100"> <span>{{ __('Calculate Earning') }}</span></a>
-            </div>
+        <div class="row justify-content-center">
+             <div class="col-lg-10">
+                <div class="aurora-card p-5 rounded-3xl border border-white-10">
+                    <div class="row gy-4 align-items-end">
+                        <div class="col-lg-4 col-md-6">
+                            <label class="mbl-h text-white mb-2">{{ __('Amount') }}</label>
+                            <input type="text" class="form-control bg-transparent text-white border-white-10 rounded-xl" name="amount" id="amount"
+                                placeholder="{{ __('Enter amount') }}">
+                        </div>
+                        <div class="col-lg-5 col-md-6">
+                            <label class="mbl-h text-white mb-2">{{ __('Investment Plan') }}</label>
+                            <select class="form-select bg-transparent text-white border-white-10 rounded-xl" name="selectplan" id="plan">
+                                <option selected disabled class="text-secondary">{{ __('Select a plan') }}</option>
+                                @forelse ($plans as $item)
+                                    <option value="{{ $item->id }}" class="text-dark">{{ $item->plan_name }}</option>
+                                @empty
+                                @endforelse
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <a href="#0" id="calculate-btn" class="btn w-100 rounded-full py-2 fw-bold text-white shadow-lg" style="background: var(--aurora-gradient);"> {{ __('Calculate') }}</a>
+                        </div>
+                    </div>
+                </div>
+             </div>
         </div>
     </div>
 </div>
 
 <div class="modal fade" id="invest" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <form action="{{route('user.investmentplan.submit')}}" method="post">
             @csrf
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">{{__('Invest Now')}}</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <div class="modal-content aurora-card rounded-2xl border-white-10">
+                <div class="modal-header border-white-10">
+                    <h5 class="modal-title text-white">{{__('Invest Now')}}</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="form-group">
-                            <label for="">{{ __('Invest Amount') }}</label>
-                            <input type="text" name="amount" class="form-control">
+                            <label for="" class="text-white mb-2">{{ __('Invest Amount') }}</label>
+                            <input type="text" name="amount" class="form-control bg-transparent text-white border-white-10 rounded-xl">
                             <input type="hidden" name="plan_id" class="form-control">
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
-                    <button type="submit" class="btn main-btn"><span>{{__('Invest Now')}}</span></button>
+                <div class="modal-footer border-white-10">
+                    <button type="button" class="btn btn-secondary rounded-full" data-bs-dismiss="modal">{{__('Close')}}</button>
+                    <button type="submit" class="btn main-btn rounded-full bg-gradient-aurora text-white border-0">{{__('Invest Now')}}</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
+@push('style')
+<style>
+    .featured-plan {
+        transform: scale(1.05);
+        z-index: 2;
+        border: 2px solid transparent;
+        background-clip: padding-box;
+    }
+    .border-gradient::after {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border-radius: 26px;
+        padding: 2px;
+        background: var(--aurora-gradient);
+        -webkit-mask:
+           linear-gradient(#fff 0 0) content-box,
+           linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+    .border-white-10 {
+        border-color: rgba(255,255,255,0.1) !important;
+    }
+</style>
+@endpush
 
 @push('script')
 <script>
