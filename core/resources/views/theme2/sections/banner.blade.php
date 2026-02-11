@@ -4,8 +4,13 @@
 @endphp
 
 <section class="hero-premium">
+    {{-- To use a custom video (e.g. Elon Musk), upload to: asset/videos/hero.mp4 and change src below --}}
     <video autoplay loop muted playsinline class="hero-video-bg">
-        <source src="https://videos.pexels.com/video-files/3129957/3129957-hd_1920_1080_25fps.mp4" type="video/mp4">
+        @if(file_exists(public_path('asset/videos/hero.mp4')))
+            <source src="{{ asset('asset/videos/hero.mp4') }}" type="video/mp4">
+        @else
+            <source src="https://videos.pexels.com/video-files/7565738/7565738-uhd_2560_1440_30fps.mp4" type="video/mp4">
+        @endif
     </video>
     <div class="hero-overlay"></div>
 
